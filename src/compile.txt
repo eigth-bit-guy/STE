@@ -1,0 +1,1 @@
+gcc main.c -o ste -lGL -lGLU -lglut -lGLEW -lfreetype -I/usr/include/freetype2
