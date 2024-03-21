@@ -9,19 +9,23 @@ void display(void)
   glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
-
 int main(int argc, char *argv[])
 {
   int g_Width = 600, g_Height = 600;
   glutInit(&argc, argv);
   FT_Library ft;
   if(FT_Init_FreeType(&ft)){
-    fprintf(stderr, "Error FreeType\n");
+    fprintf(stderr, "Error when intialize FreeType\n");
     return -1;
   }
   FT_Face face;
   if(FT_New_Face(ft, "..//fonts//FantasqueSansMono-Regular.ttf", 0, &face)){
     fprintf(stderr, "Error failed to load font");
+    return -1;
+  }
+  FT_Set_Pixel_Sizes(face, 0, 48);
+  if(FT_Load_Char(face, 'X', FT_LOAD_RENDER)){
+    fprintf(stderr, "Error when load caracter\n");
     return -1;
   }
   
