@@ -33,6 +33,9 @@ int main(int argc, char *argv[])
   glutInitDisplayMode ( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
   glutInitWindowPosition(500, 500);
   glutCreateWindow ("Simple Text Editor");
+  //Initialize glew
+  GLenum err = glewInit();
+  if(GLEW_OK != err){fprintf(stderr, "Error: %s\n", glewGetErrorString(err));}
   glutDisplayFunc(display);
 
   GLenum res = glewInit();
