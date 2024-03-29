@@ -1,1 +1,0 @@
-gcc $(pkg-config --cflags glfw3) -o teste teste.c $(pkg-config --static --libs glfw3) -lGLEW -lGL
