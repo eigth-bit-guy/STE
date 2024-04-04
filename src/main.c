@@ -13,12 +13,6 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-//ajust callback func before
-void error_callback(int error, const char *description)
-{
-  fprintf(stderr, "Error: %s\n", description);
-}
-
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
   if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -47,11 +41,10 @@ int main(int argc, char **argv)
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-  GLFWwindow *window = NULL;
-  window = glfwCreateWindow(500, 500, "Simple Text Editor(STE)", NULL, NULL);
-  if(!window){
+  GLFWwindow *window = window = glfwCreateWindow(500, 500, "Simple Text Editor(STE)", NULL, NULL);
+  if(window == NULL){
 	glfwTerminate();
-	return 1;
+	return -1;
   }
   glfwMakeContextCurrent(window);
 
@@ -70,35 +63,22 @@ int main(int argc, char **argv)
   }
   const char *font_path = "../fonts/FantasqueSansMono-Regular.ttf";
 
-  ft_error = FT_New_Face( library,
-                     font_path,
-                     0,
-                     &face );
-  //implement before
+  ft_error = FT_New_Face(library, font_path, 0, &face);
   if ( ft_error == FT_Err_Unknown_File_Format ){
 	return 1;
   }
-  else if ( ft_error ){
+  else if (ft_error){
 	return 1;
   }
 
-  ft_error = FT_Set_Char_Size(
-						   face,    /* handle to face object         */
-						   0,       /* char_width in 1/64 of points  */
-						   16*64,   /* char_height in 1/64 of points */
-						   300,     /* horizontal device resolution  */
-						   300 );   /* vertical device resolution    */
-
-  ft_error = FT_Set_Pixel_Sizes(
-							 face,   /* handle to face object */
-							 0,      /* pixel_width           */
-          16 );   /* pixel_height          */
+  ft_error = FT_Set_Pixel_Sizes(face, 0, 16);
 
   int width, height;
   bool quit = false;
+  //main loop
   while(!glfwWindowShouldClose(window)){
 	glClear(GL_COLOR_BUFFER_BIT);
-	/* glyph_index = FT_Get_Char_Index( face, charcode ); */
+	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 	glfwSetKeyCallback(window, key_callback);
