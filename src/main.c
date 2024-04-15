@@ -61,7 +61,6 @@ int main(int argc, char **argv)
 	//implement before
 	return 1;
   }
-  const char *font_path = "../fonts/FantasqueSansMono-Regular.ttf";
 
   ft_error = FT_New_Face(library, font_path, 0, &face);
   if ( ft_error == FT_Err_Unknown_File_Format ){

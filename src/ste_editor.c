@@ -15,3 +15,10 @@ Errno read_input_file(void)
   //Implement before
   return 0;
 }
+
+int load_from_file()
+{
+
+
+  return 0;
+}
