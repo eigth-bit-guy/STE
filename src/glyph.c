@@ -49,12 +49,26 @@ void atlas_init(Glyph_Atlas *atlas, FT_Face face)
 	  exit(1);
 	}
 
-	
-	
-	
-  }
+	atlas->glyph_metric[i].ax = face->glyph.advanced.x >> 6;
+	atlas->glyph_metric[i].ay = face->glyph.advanced.y >> 6;
+	atlas->glyph_metric[i].bw = face->glyph->bitmap.width;
+	atlas->glyph_metric[i].bh = face->bitmap->rows;
+	atlas->glyph_metric[i].bl = face->glyph->bitmap_left;
+	atlas->glyph_metric[i].bt = face->glyph->bitmap_top;
+	atlas->glyph_metric[i].tx = (float)x / (float)atlas->width;
 
-  
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glTexSubImage2D(GL_TEXTURE_2D,
+					0,
+					x,
+					0,
+					face->glyph->bitmap.width,
+					face->glyph->bitmap.rows,
+					GL_RED,
+					GL_UNSIGNED_BYTE,
+					face->glyph->bitmap.buffer);
+	x += face->bitmpa.width;
+  }
 }
 
 
