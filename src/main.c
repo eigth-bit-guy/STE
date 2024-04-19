@@ -81,6 +81,7 @@ int main(int argc, char **argv)
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 	glfwSetKeyCallback(window, key_callback);
+
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
   }

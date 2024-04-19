@@ -2,6 +2,7 @@
 #include <string.h>
 #include <errno.h>
 
+#include "ste_editor.h"
 #include "common.h"
 
 /* if(FT_Load_Char(face, 'X', FT_LOAD_RENDER)){ */

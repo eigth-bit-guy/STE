@@ -1,5 +1,10 @@
 #include <assert.h>
 #include <stdbool.h>
+#include "glyph.h"
+
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
+#include <GL/glew.h>
 
 void atlas_init(Glyph_Atlas *atlas, FT_Face face)
 {
