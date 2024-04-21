@@ -3,15 +3,14 @@
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
-
 #include "common.h"
-#include "ste_editor.h"
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <GL/glew.h>
-
 #include <ft2build.h>
 #include FT_FREETYPE_H
+
+GLint uniform_tex;
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -27,15 +26,6 @@ int main(int argc, char **argv)
   if(!glfwInit()){
 	printf("Erro when initialize glfw\n");
 	return 1;
-  }
-
-  if(argc > 1){
-	const char *file_path = argv[1];
-	err = read_input_file();
-	if(err != 0){
-	  fprintf(stderr, "ERROR: when reading input fiel %s: %s\n", file_path, strerror(err));
-	  return 1;
-	}
   }
 
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -70,8 +60,28 @@ int main(int argc, char **argv)
 	return 1;
   }
 
-  ft_error = FT_Set_Pixel_Sizes(face, 0, 16);
+  FT_Set_Pixel_Sizes(face, 0, 48);
+  if(FT_Load_Char(face, 'S', FT_LOAD_RENDER)){
+	fprintf(stderr, "Error: could not load caracter 'S'\n");
+	return 1;
+  }
 
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  
+  GLuint tex;
+  glActiveTexture(GL_TEXTURE0);
+  glGenTextures(1, &tex);
+  glBindTexture(GL_TEXTURE_2D, tex);
+  glUniform1i(uniform_tex, 0);
+
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+  glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+  
   int width, height;
   bool quit = false;
   //main loop
