@@ -13,4 +13,4 @@ common.o: common.c common.h
 clean:
 	rm *.o
 
-# $(pkg-config --cflags glfw3) $(pkg-config --static --libs glfw3) -lGLEW -lGL -lfreetype -I/usr/include/freetype2
+# $(pkg-config --cflags glut) $(pkg-config --static --libs glut) -lGLEW -lGL -lfreetype -I/usr/include/freetype2
