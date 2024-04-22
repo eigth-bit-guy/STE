@@ -1,2 +1,0 @@
-gcc main.c -o ste -lGL -lGLU -lglut -lGLEW -lfreetype -I/usr/include/freetype2
-gcc $(pkg-config --cflags glfw3) -o teste teste.c $(pkg-config --static --libs glfw3) -lGLEW -lGL -lfreetype -I/usr/include/freetype2

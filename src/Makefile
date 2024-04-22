@@ -1,7 +1,6 @@
 CFLAGS = pkg-config --cflags glfw3
 LIBS = pkg-config --static --libs glfw3
 
-
 ste: main.o common.o
 	gcc -o ste main.o common.o
 
