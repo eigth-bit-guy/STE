@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <errno.h>
-
+#include <stdlib.h>
 
 /*
- * TODO: implement file manage correctly
+ * TODO: not finshed yet
  */
-int create_file(const char *file_name)
+int create_file(const char *file_name, const char *buf, size_t buf_size)
 {
+  Errno errno = 0;
   
   if(file_name == NULL){
 	fprintf(stderr, "Error: invalid file name: file_name is null\n");
@@ -16,26 +17,14 @@ int create_file(const char *file_name)
   FILE *new_file;
   new_file = fopen(file_name, "w");
 
-  if(new_file == NULL){
-	fclose(new_file);
-	fprintf(stderr, "Error: when create file: %s file null\n", file_name);
-	return 1;
-  }
+  //implement ste_error
+  if(new_file == NULL) ste_error(errno);
+
+  fwrite(buf, 1, buf_size, new_file);
+  if(ferror(new_file)) ste_error();
 
   fclose(new_file);
   return 0;
 }
 
-/*
- * For test
- */
-int main(void)
-{
-  int ret = create_file("testando.txt");
-  if(ret != 0){
-	printf("Error");
-	return 1;
-  }
-  
-  return 0;
-}
+
